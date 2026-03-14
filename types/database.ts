@@ -42,6 +42,7 @@ export type Database = {
           code: string;
           created_at: string;
           id: string;
+          is_active: boolean;
           power_level: number;
           site_id: string;
           status: "online" | "degraded" | "offline";
@@ -54,6 +55,7 @@ export type Database = {
           code: string;
           created_at?: string;
           id?: string;
+          is_active?: boolean;
           power_level: number;
           site_id: string;
           status: "online" | "degraded" | "offline";
@@ -140,6 +142,7 @@ export type Database = {
           coverage_percent: number;
           created_at: string;
           id: string;
+          is_active: boolean;
           monthly_energy_cost_cents: number;
           name: string;
           region: string;
@@ -155,6 +158,7 @@ export type Database = {
           coverage_percent?: number;
           created_at?: string;
           id?: string;
+          is_active?: boolean;
           monthly_energy_cost_cents?: number;
           name: string;
           region: string;

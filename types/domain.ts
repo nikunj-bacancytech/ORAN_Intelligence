@@ -12,22 +12,29 @@ export type DashboardMetric = {
 
 export type Site = {
   id: string;
+  code: string;
   name: string;
   region: string;
   uptime: number;
   subscribers: number;
   status: SiteStatus;
   technology: string;
+  coveragePercent: number;
+  monthlyEnergyCost: number;
+  isActive: boolean;
 };
 
 export type BaseStation = {
   id: string;
   code: string;
+  siteId: string;
   siteName: string;
+  siteCode: string;
   vendor: string;
   powerLevel: number;
   backhaulUsage: number;
   status: SiteStatus;
+  isActive: boolean;
 };
 
 export type Alarm = {

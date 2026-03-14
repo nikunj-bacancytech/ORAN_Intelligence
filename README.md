@@ -27,10 +27,12 @@ types/          Shared domain and database types
 2. Copy `.env.example` values into `.env.local`
 3. Apply `supabase/migrations/202603141430_initial_schema.sql`
 4. Apply `supabase/migrations/202603141900_auth_profiles_and_policies.sql`
-5. Run `supabase/seed.sql`
-6. Create a Supabase Auth user with metadata:
+5. Apply `supabase/migrations/202603142030_sites_and_stations_soft_deactivate.sql`
+6. Apply `supabase/migrations/202603142130_uuid_defaults.sql`
+7. Run `supabase/seed.sql`
+8. Create a Supabase Auth user with metadata:
    `{"full_name":"Demo Operator","tenant_slug":"oran-demo","role":"operator"}`
-7. Run `npm run dev`
+9. Run `npm run dev`
 
 ## Database
 
@@ -38,6 +40,8 @@ The app reads from Supabase database tables only. Local setup artifacts live in:
 
 - `supabase/migrations/202603141430_initial_schema.sql`
 - `supabase/migrations/202603141900_auth_profiles_and_policies.sql`
+- `supabase/migrations/202603142030_sites_and_stations_soft_deactivate.sql`
+- `supabase/migrations/202603142130_uuid_defaults.sql`
 - `supabase/seed.sql`
 
 ## Authentication

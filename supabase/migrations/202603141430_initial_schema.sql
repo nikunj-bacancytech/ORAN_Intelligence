@@ -11,7 +11,7 @@ end;
 $$;
 
 create table if not exists public.tenants (
-  id uuid primary key,
+  id uuid primary key default gen_random_uuid(),
   name text not null,
   slug text not null unique,
   default_region text not null,
@@ -30,7 +30,7 @@ create table if not exists public.profiles (
 );
 
 create table if not exists public.subscription_plans (
-  id uuid primary key,
+  id uuid primary key default gen_random_uuid(),
   code text not null unique,
   name text not null,
   price_monthly_cents integer not null,
@@ -42,7 +42,7 @@ create table if not exists public.subscription_plans (
 );
 
 create table if not exists public.subscriptions (
-  id uuid primary key,
+  id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.tenants (id) on delete cascade,
   plan_id uuid not null references public.subscription_plans (id),
   status text not null check (status in ('trialing', 'active', 'past_due', 'canceled')),
@@ -55,7 +55,7 @@ create table if not exists public.subscriptions (
 );
 
 create table if not exists public.sites (
-  id uuid primary key,
+  id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.tenants (id) on delete cascade,
   name text not null,
   code text not null,
@@ -72,7 +72,7 @@ create table if not exists public.sites (
 );
 
 create table if not exists public.base_stations (
-  id uuid primary key,
+  id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.tenants (id) on delete cascade,
   site_id uuid not null references public.sites (id) on delete cascade,
   code text not null,
@@ -86,7 +86,7 @@ create table if not exists public.base_stations (
 );
 
 create table if not exists public.alarms (
-  id uuid primary key,
+  id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.tenants (id) on delete cascade,
   site_id uuid not null references public.sites (id) on delete cascade,
   base_station_id uuid references public.base_stations (id) on delete set null,
@@ -99,7 +99,7 @@ create table if not exists public.alarms (
 );
 
 create table if not exists public.invoices (
-  id uuid primary key,
+  id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.tenants (id) on delete cascade,
   subscription_id uuid references public.subscriptions (id) on delete set null,
   account_name text not null,
@@ -111,7 +111,7 @@ create table if not exists public.invoices (
 );
 
 create table if not exists public.network_snapshots (
-  id uuid primary key,
+  id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.tenants (id) on delete cascade,
   label text not null,
   coverage integer not null check (coverage between 0 and 100),

@@ -13,6 +13,7 @@ export async function getSites(): Promise<Site[]> {
     .from("sites")
     .select("*")
     .eq("tenant_id", tenant.id)
+    .order("is_active", { ascending: false })
     .order("region", { ascending: true });
 
   if (error) {
@@ -23,11 +24,15 @@ export async function getSites(): Promise<Site[]> {
 
   return rows.map((site) => ({
     id: site.id,
+    code: site.code,
     name: site.name,
     region: site.region,
     uptime: Number(site.uptime),
     subscribers: site.subscribers,
     status: site.status,
-    technology: site.technology
+    technology: site.technology,
+    coveragePercent: site.coverage_percent,
+    monthlyEnergyCost: site.monthly_energy_cost_cents / 100,
+    isActive: site.is_active
   }));
 }

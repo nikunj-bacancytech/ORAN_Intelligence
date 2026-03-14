@@ -51,11 +51,14 @@ export async function getDashboardData(): Promise<{
   const stations: BaseStation[] = baseStationRows.map((station) => ({
     id: station.id,
     code: station.code,
+    siteId: station.site_id,
     siteName: siteMap.get(station.site_id) ?? "Unknown site",
+    siteCode: sites.find((site) => site.id === station.site_id)?.code ?? "N/A",
     vendor: station.vendor,
     powerLevel: station.power_level,
     backhaulUsage: station.backhaul_usage,
-    status: station.status
+    status: station.status,
+    isActive: station.is_active
   }));
 
   const alarms: Alarm[] = alarmRows.map((alarm) => ({
@@ -86,12 +89,16 @@ export async function getDashboardData(): Promise<{
 
   const mappedSites: Site[] = sites.map((site) => ({
     id: site.id,
+    code: site.code,
     name: site.name,
     region: site.region,
     uptime: Number(site.uptime),
     subscribers: site.subscribers,
     status: site.status,
-    technology: site.technology
+    technology: site.technology,
+    coveragePercent: site.coverage_percent,
+    monthlyEnergyCost: site.monthly_energy_cost_cents / 100,
+    isActive: site.is_active
   }));
 
   const activeSites = mappedSites.filter((site) => site.status === "online").length;
